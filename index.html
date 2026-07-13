@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="WebPfyer converts oversized images into fast, responsive WebP files directly in your browser.">
+  <meta name="theme-color" content="#0b1020">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <title>WebPfyer — Web-ready WebP images</title>
+</head>
+<body>
+  <a class="skip-link" href="#converter">Skip to converter</a>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="WebPfyer home">
+      <span class="brand-mark" aria-hidden="true"><span></span><span></span></span>
+      <span><strong>WebP</strong>fyer</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#converter">Converter</a>
+      <a href="#presets">Presets</a>
+      <a href="#guide">Guide</a>
+      <a href="#privacy">Privacy</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-button" id="installBtn" hidden type="button">Install</button>
+      <button class="icon-button" id="themeBtn" type="button" aria-label="Switch theme">☾</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <span class="eyebrow">Private · Fast · Browser-based</span>
+        <h1>Turn heavy images into <span>web-ready WebP files.</span></h1>
+        <p>Resize, compress and generate responsive images directly in your browser. Nothing is uploaded.</p>
+        <div class="hero-actions">
+          <button class="button primary" id="heroChooseBtn" type="button">Choose images</button>
+          <a class="button secondary" href="#converter">Open converter</a>
+        </div>
+        <p class="privacy-note">● Your images stay on your device.</p>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="before-card"><span>PNG</span><strong>4.8 MB</strong></div>
+        <div class="flow-line"></div>
+        <div class="after-card"><span>WEBP</span><strong>312 KB</strong><em>−93.5%</em></div>
+      </div>
+    </section>
+
+    <section id="converter" class="converter-section shell">
+      <div class="section-heading">
+        <div><span class="eyebrow">Converter</span><h2>Prepare images for the web</h2></div>
+        <p>Upload a batch, choose its purpose, then let WebPfyer create responsive, optimized variants.</p>
+      </div>
+
+      <div class="workspace">
+        <section class="panel upload-panel" aria-labelledby="uploadTitle">
+          <div class="panel-heading">
+            <div><h3 id="uploadTitle">Images</h3><p id="queueSummary">No files selected</p></div>
+            <button class="text-button danger" id="clearBtn" type="button" disabled>Clear all</button>
+          </div>
+
+          <input id="fileInput" class="visually-hidden" type="file" accept="image/png,image/jpeg,image/webp,image/bmp,image/gif" multiple>
+          <button id="dropZone" class="drop-zone" type="button">
+            <span class="drop-icon" aria-hidden="true">↥</span>
+            <strong>Drop your images here</strong>
+            <span>PNG, JPG, WebP, BMP or GIF</span>
+            <small>Click to browse, drag files here, or paste an image</small>
+          </button>
+
+          <div id="queue" class="queue" aria-live="polite"></div>
+        </section>
+
+        <aside class="panel settings-panel" aria-labelledby="settingsTitle">
+          <div class="panel-heading"><div><h3 id="settingsTitle">Optimization settings</h3><p>Applied to selected images</p></div></div>
+
+          <label class="field">
+            <span>Image purpose</span>
+            <select id="presetSelect">
+              <option value="auto">Auto</option>
+              <option value="hero">Website hero</option>
+              <option value="page">Page image</option>
+              <option value="card">Card image</option>
+              <option value="thumbnail">Thumbnail</option>
+              <option value="blog">Blog image</option>
+              <option value="product">Product image</option>
+              <option value="logo">Logo / transparent graphic</option>
+              <option value="social">Social image</option>
+              <option value="custom">Custom</option>
+            </select>
+          </label>
+
+          <div id="presetHint" class="preset-hint"></div>
+
+          <fieldset class="field-group">
+            <legend>Compression</legend>
+            <div class="segmented" role="group" aria-label="Compression mode">
+              <button class="segment active" data-mode="quality" type="button">Quality</button>
+              <button class="segment" data-mode="target" type="button">Target size</button>
+            </div>
+            <div id="qualityControls" class="field compact">
+              <span><span>Quality</span><output id="qualityOutput">80</output></span>
+              <input id="qualityRange" type="range" min="35" max="100" value="80">
+            </div>
+            <label id="targetControls" class="field compact" hidden>
+              <span>Target per variant</span>
+              <div class="input-suffix"><input id="targetSize" type="number" min="20" max="5000" value="250"><span>KB</span></div>
+            </label>
+          </fieldset>
+
+          <fieldset class="field-group">
+            <legend>Output</legend>
+            <label class="switch-row"><span><strong>Responsive sizes</strong><small>Create desktop, tablet and mobile variants</small></span><input id="responsiveToggle" type="checkbox" checked><i></i></label>
+            <label class="switch-row"><span><strong>Never upscale</strong><small>Skip dimensions larger than the source</small></span><input id="noUpscaleToggle" type="checkbox" checked><i></i></label>
+            <label class="switch-row"><span><strong>Preserve transparency</strong><small>Keep alpha channels for logos and graphics</small></span><input id="transparencyToggle" type="checkbox" checked><i></i></label>
+            <label class="switch-row"><span><strong>Strip metadata</strong><small>Canvas export removes camera and GPS metadata</small></span><input type="checkbox" checked disabled><i></i></label>
+          </fieldset>
+
+          <div id="customControls" class="custom-grid" hidden>
+            <label class="field"><span>Width</span><div class="input-suffix"><input id="customWidth" type="number" min="1" value="1200"><span>px</span></div></label>
+            <label class="field"><span>Height</span><div class="input-suffix"><input id="customHeight" type="number" min="1" placeholder="Auto"><span>px</span></div></label>
+            <label class="field"><span>Fit</span><select id="fitMode"><option value="preserve">Preserve</option><option value="contain">Contain</option><option value="cover">Cover</option></select></label>
+          </div>
+
+          <label class="field">
+            <span>SEO filename</span>
+            <input id="filenameInput" type="text" placeholder="e.g. kingship-home-hero">
+            <small>Leave blank to use each original filename.</small>
+          </label>
+
+          <button id="convertBtn" class="button primary wide" type="button" disabled>Create WebP files</button>
+          <div id="progressWrap" class="progress-wrap" hidden>
+            <div class="progress-track"><span id="progressBar"></span></div>
+            <p id="progressText">Preparing…</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="resultsSection" class="results-section shell" hidden>
+      <div class="section-heading compact-heading">
+        <div><span class="eyebrow">Results</span><h2>Your optimized images are ready</h2></div>
+        <div class="result-actions"><button id="downloadAllBtn" class="button primary" type="button">Download all as ZIP</button></div>
+      </div>
+      <div id="results" class="results-grid"></div>
+
+      <section class="panel code-panel">
+        <div class="panel-heading">
+          <div><h3>Responsive HTML</h3><p>Copy markup that matches the files WebPfyer generated.</p></div>
+          <button id="copyHtmlBtn" class="button secondary small" type="button">Copy HTML</button>
+        </div>
+        <div class="code-controls">
+          <label>Alt text <input id="altTextInput" type="text" placeholder="Describe the image"></label>
+          <label>Asset path <input id="assetPathInput" type="text" value="assets/images/"></label>
+          <label class="check-inline"><input id="heroMarkupToggle" type="checkbox" checked> Hero image</label>
+        </div>
+        <pre><code id="htmlOutput">Convert an image to generate markup.</code></pre>
+      </section>
+    </section>
+
+    <section id="presets" class="info-section shell">
+      <div class="section-heading"><div><span class="eyebrow">Presets</span><h2>Right-sized for real websites</h2></div><p>WebPfyer preserves aspect ratio by default and never creates variants larger than the source unless you allow it.</p></div>
+      <div class="feature-grid">
+        <article><strong>Website hero</strong><p>1920, 1280 and 960 pixels wide with balanced photographic quality.</p></article>
+        <article><strong>Page image</strong><p>1600, 1200 and 800 pixel variants for content sections.</p></article>
+        <article><strong>Cards & thumbnails</strong><p>Compact responsive assets for grids, lists and previews.</p></article>
+        <article><strong>Logos & graphics</strong><p>Lossless WebP with transparency preservation and no unwanted upscaling.</p></article>
+      </div>
+    </section>
+
+    <section id="guide" class="info-section shell split-info">
+      <div><span class="eyebrow">Guide</span><h2>Use each format where it belongs</h2><p>WebP is ideal for photographs and most website graphics. SVG remains the best choice for true vector logos and icons. Large PNG photographs usually waste bandwidth.</p></div>
+      <div class="guide-list">
+        <p><strong>Hero images:</strong> do not lazy-load the most important image above the fold.</p>
+        <p><strong>Page images:</strong> use <code>loading="lazy"</code> for content further down the page.</p>
+        <p><strong>Dimensions:</strong> include width and height to reduce layout shift.</p>
+        <p><strong>Responsive files:</strong> let the browser choose the smallest suitable source.</p>
+      </div>
+    </section>
+
+    <section id="privacy" class="privacy-section shell">
+      <div class="privacy-card">
+        <span class="privacy-lock" aria-hidden="true">⌾</span>
+        <div><span class="eyebrow">Privacy by design</span><h2>Your files never leave your device.</h2><p>WebPfyer processes images locally using your browser’s Canvas API. There are no accounts, uploads, trackers or remote conversion services.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer shell"><span>WebPfyer</span><p>Purify your images. Power your website.</p><small>Built for private, browser-based image optimization.</small></footer>
+
+  <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog id="onboardingDialog">
+    <form method="dialog" class="dialog-card">
+      <button class="dialog-close" value="close" aria-label="Close">×</button>
+      <span class="eyebrow">Welcome to WebPfyer</span>
+      <h2>Three steps to lighter websites</h2>
+      <ol class="onboarding-steps"><li><strong>Upload</strong><span>Choose one image or an entire batch.</span></li><li><strong>Optimize</strong><span>Select a web preset or customize the output.</span></li><li><strong>Download</strong><span>Get WebP variants, a ZIP and matching HTML.</span></li></ol>
+      <label class="check-inline"><input id="dontShowAgain" type="checkbox"> Do not show this again</label>
+      <button class="button primary wide" value="start">Start optimizing</button>
+    </form>
+  </dialog>
+
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
