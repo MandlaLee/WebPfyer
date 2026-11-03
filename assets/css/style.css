@@ -65,3 +65,29 @@ button:disabled { cursor: not-allowed; opacity: .52; }
 .button:not(:disabled):active, .icon-button:not(:disabled):active { transform: translateY(1px); }
 html { scroll-padding-top: 90px; }
 @media (max-width:620px) { html { scroll-padding-top: 72px; } }
+
+
+/* Ensure action labels remain readable in both colour themes. */
+.button.primary {
+  background: #2457d6;
+  border-color: #2457d6;
+  color: #ffffff;
+}
+html[data-theme="dark"] .button.primary {
+  background: #8eb0ff;
+  border-color: #8eb0ff;
+  color: #0b1020;
+}
+.button.primary:not(:disabled):hover { filter: brightness(.94); }
+.button.primary:disabled {
+  opacity: 1;
+  background: #d5dbe5;
+  border-color: #d5dbe5;
+  color: #465266;
+  cursor: not-allowed;
+}
+html[data-theme="dark"] .button.primary:disabled {
+  background: #343e50;
+  border-color: #55627a;
+  color: #e0e7f2;
+}
