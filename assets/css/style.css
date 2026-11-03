@@ -91,3 +91,31 @@ html[data-theme="dark"] .button.primary:disabled {
   border-color: #55627a;
   color: #e0e7f2;
 }
+
+
+/* Contrast audit: controls and badges in both themes */
+.skip-link {
+  background: #2457d6;
+  color: #fff;
+}
+html[data-theme="dark"] .skip-link {
+  background: #8eb0ff;
+  color: #0b1020;
+}
+.privacy-lock {
+  background: #2457d6;
+  color: #fff;
+}
+html[data-theme="dark"] .privacy-lock {
+  background: #8eb0ff;
+  color: #0b1020;
+}
+.icon-button, .segment, .text-button, .remove-item {
+  color: var(--text);
+}
+.text-button.danger { color: var(--danger); }
+.text-button:disabled { opacity: .65; }
+.drop-zone:focus-visible, .switch-row:focus-within {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
