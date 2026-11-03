@@ -1,4 +1,4 @@
-const CACHE = 'webpfyer-v1.0.0';
+const CACHE = 'webpfyer-v1.0.1';
 const APP_SHELL = [
   './', './index.html', './404.html', './manifest.webmanifest',
   './assets/css/style.css', './assets/js/app.js', './assets/js/presets.js',
