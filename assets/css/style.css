@@ -138,3 +138,19 @@ html[data-theme="dark"] .privacy-lock {
     max-width: calc(100% - 32px);
   }
 }
+
+/* Final containment: auto width respects both side margins. */
+.settings-panel > #convertBtn {
+  display: block;
+  width: auto;
+  max-width: none;
+  margin-left: 22px;
+  margin-right: 22px;
+  box-sizing: border-box;
+}
+@media (max-width: 620px) {
+  .settings-panel > #convertBtn {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}
