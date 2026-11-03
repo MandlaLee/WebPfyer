@@ -119,3 +119,22 @@ html[data-theme="dark"] .privacy-lock {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
 }
+
+
+/* Keep the primary conversion action within its settings panel. */
+.settings-panel > .button {
+  display: flex;
+  width: calc(100% - 44px);
+  max-width: calc(100% - 44px);
+  min-width: 0;
+  box-sizing: border-box;
+  white-space: normal;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 620px) {
+  .settings-panel > .button {
+    width: calc(100% - 32px);
+    max-width: calc(100% - 32px);
+  }
+}
